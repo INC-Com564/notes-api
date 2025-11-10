@@ -13,7 +13,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 export const handler = async (event) => {
   console.log("HANDLER EVENT!!: ", event);
   const { rawPath, body } = event;
-  const httpMethod = event.requestContext.http.method;
+  const httpMethod = event.requestContext?.http?.method || event.httpMethod;
 
   if (httpMethod === "GET" && rawPath === "/notes") {
     const result = await docClient.send(
